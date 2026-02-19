@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+
+<script src="https://includedmotley.com/dc/4a/82/dc4a824f6faa4dd00b5e4e4c7377a67f.js"></script>
+
+<script async="async" data-cfasync="false" src="https://includedmotley.com/5b191e9b4c914622af800756b3a63802/invoke.js"></script>
+<div id="container-5b191e9b4c914622af800756b3a63802"></div>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Mode Hack</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #00ff9d, #00b8ff, #ff0080);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #00ff9d;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+            letter-spacing: 1px;
+        }
+        
+        .status-bar {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .status-text {
+            font-size: 1.1rem;
+            color: #00ff9d;
+            font-weight: bold;
+        }
+        
+        .step-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .step-line::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+        
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            background-color: #333;
+            color: #aaa;
+            z-index: 2;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active {
+            background-color: #00ff9d;
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.7);
+        }
+        
+        .step.completed {
+            background-color: #00b8ff;
+            color: #000;
+        }
+        
+        .main-content {
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .ad-button {
+            padding: 18px 40px;
+            background: linear-gradient(90deg, #00ff9d 0%, #00b8ff 100%);
+            color: #000 !important;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 255, 157, 0.4);
+            display: inline-block;
+        }
+        
+        .timer-container {
+            width: 100%;
+            display: none;
+        }
+        
+        .timer-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .timer {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #fff;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.7);
+        }
+        
+        .progress-container {
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: #00ff9d;
+            width: 0%;
+            transition: width 1s linear;
+        }
+        
+        .final-content {
+            display: none;
+            animation: pulse 2s infinite;
+        }
+        
+        .final-button {
+            background: linear-gradient(90deg, #ff0080 0%, #ff8c00 100%);
+            color: white !important;
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 8px 20px rgba(255, 0, 128, 0.4);
+        }
+
+        .hidden { display: none; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Real Mode Hack</h1>
+        <p>লিংক পেতে ধাপগুলো সম্পন্ন করুন</p>
+    </div>
+    
+    <div class="status-bar">
+        <div class="status-text" id="statusText">হ্যাক নিতে নিচের বাটনে ক্লিক করুন</div>
+    </div>
+    
+    <div class="step-line">
+        <div class="step active" id="s1">১</div>
+        <div class="step" id="s2">২</div>
+        <div class="step" id="s3">৩</div>
+        <div class="step" id="sf"><i class="fas fa-check"></i></div>
+    </div>
+    
+    <div class="main-content">
+        <a href="https://includedmotley.com/xd6ujz7x?key=16cd697e18681e6378036f2f8bed5e26" 
+           target="_blank" class="ad-button" id="btn1" onclick="startTimer(1, 10)">Hack নিতে ক্লিক করুন</a>
+
+        <a href="https://includedmotley.com/rpjxqs81n?key=8f5133280375791bc35944f3e792dd48" 
+           target="_blank" class="ad-button hidden" id="btn2" onclick="startTimer(2, 10)">Hack নিতে ক্লিক করুন</a>
+
+        <a href="https://includedmotley.com/b00wwap5?key=5afdad2a6ca8766b15e2be078457b9b5" 
+           target="_blank" class="ad-button hidden" id="btn3" onclick="startTimer(3, 5)">Hack নিতে ক্লিক করুন</a>
+
+        <div class="timer-container" id="timerBox">
+            <p id="timerMsg" style="font-size: 1.2rem;"></p>
+            <div class="timer" id="timeLeft">10</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="pBar"></div>
+            </div>
+        </div>
+
+        <div class="final-content" id="finalBox">
+            <p style="font-size: 1.4rem; color: #00ff9d; margin-bottom: 20px;">অভিনন্দন! আপনি সবগুলো ধাপ সম্পন্ন করেছেন</p>
+            <a href="https://realmode13.github.io/realmodehackV2.0/" class="final-button">অভিনন্দন আপনি এখানে ক্লিক করুন</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function startTimer(step, seconds) {
+        // বিজ্ঞাপন বাটন লুকানো
+        document.getElementById('btn' + step).classList.add('hidden');
+        
+        // টাইমার সেটআপ
+        const timerBox = document.getElementById('timerBox');
+        const timeLeftText = document.getElementById('timeLeft');
+        const pBar = document.getElementById('pBar');
+        const statusText = document.getElementById('statusText');
+        const timerMsg = document.getElementById('timerMsg');
+        
+        timerBox.classList.add('active');
+        let time = seconds;
+        timeLeftText.innerText = time;
+        
+        if(step === 1) timerMsg.innerText = "আপনার প্রথম ধাপ সম্পন্ন হচ্ছে, অপেক্ষা করুন...";
+        if(step === 2) timerMsg.innerText = "আপনার দ্বিতীয় ধাপ সম্পন্ন হচ্ছে, অপেক্ষা করুন...";
+        if(step === 3) timerMsg.innerText = "এটি আপনার লাস্ট ধাপ, অপেক্ষা করুন...";
+
+        const interval = setInterval(() => {
+            time--;
+            timeLeftText.innerText = time;
+            pBar.style.width = ((seconds - time) / seconds * 100) + '%';
+            
+            if(time <= 0) {
+                clearInterval(interval);
+                timerBox.classList.remove('active');
+                pBar.style.width = '0%';
+                completeStep(step);
+            }
+        }, 1000);
+    }
+
+    function completeStep(step) {
+        const statusText = document.getElementById('statusText');
+        document.getElementById('s' + step).classList.remove('active');
+        document.getElementById('s' + step).classList.add('completed');
+
+        if(step === 1) {
+            statusText.innerText = "দ্বিতীয় ধাপের জন্য বাটন টিপুন";
+            document.getElementById('btn2').classList.remove('hidden');
+            document.getElementById('s2').classList.add('active');
+        } else if(step === 2) {
+            statusText.innerText = "শেষ ধাপের জন্য বাটন টিপুন";
+            document.getElementById('btn3').classList.remove('hidden');
+            document.getElementById('s3').classList.add('active');
+        } else if(step === 3) {
+            statusText.innerText = "সবগুলো ধাপ সম্পন্ন হয়েছে!";
+            document.getElementById('sf').classList.add('active');
+            document.getElementById('finalBox').style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
